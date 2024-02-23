@@ -10,11 +10,6 @@ int main()
     for (int i = 0; i <= 4; i++)
     {
         suma_oceny_matematyka += grades[i][0];
-    }
-
-
-    for (int i = 0; i <= 4; i++)
-    {
         suma_oceny_fizyka += grades[i][1];
     }
 
