@@ -48,7 +48,7 @@ int main() {
 
 
         if (playerChoice < 1 || playerChoice > 3) {
-            printf("Niepoprawny wybor. Wybierz liczbe od 1 do 3.\n");
+            printf("Niepoprawny wybor.\n");
             return 1;
         }
 
