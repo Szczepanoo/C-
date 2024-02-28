@@ -11,7 +11,7 @@ typedef struct{
 
 void DodajKontakt(Contact *tablica, int *p_ilosc_kontaktow){
 
-    if (*p_ilosc_kontaktow >= 99){
+    if (*p_ilosc_kontaktow >= 100){
         printf("Lista jest pelna.");
         return;
     }
