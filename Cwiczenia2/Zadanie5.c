@@ -32,21 +32,19 @@ void SzukajKontaktu(Contact *tablica,int *ilosc_kontaktow){
     char szukane_nazwisko[50];
     printf("Podaj szukane nazwisko:");
     scanf("%s",szukane_nazwisko);
-    int szukane_id = -1;
+    int znaleziono = 0;
     for (int i = 0;i < *ilosc_kontaktow; i++){
         if (strcmp(tablica[i].nazwisko,szukane_nazwisko) == 0){
-            szukane_id = i;
-            break;
+            znaleziono = 1;
+            printf("[ZNALEZIONO DANE] \n");
+            printf("Imie: %s \n",tablica[i].imie);
+            printf("Nazwisko: %s \n",tablica[i].nazwisko);
+            printf("Numer: %s \n", tablica[i].numer_tel);
         }
     }
 
-    if (szukane_id >= 0){
-        printf("[ZNALEZIONO DANE] \n");
-        printf("Imie: %s \n",tablica[szukane_id].imie);
-        printf("Nazwisko: %s \n",tablica[szukane_id].nazwisko);
-        printf("Numer: %s \n", tablica[szukane_id].numer_tel);
-    } else {
-        printf("Nie znaleziono danych.");
+    if (!znaleziono){
+        printf("Nie znaleziono danych. \n");
     }
 
 }
