@@ -1,11 +1,17 @@
 #include <stdio.h>
+#include <stdlib.h>
+
 
 int main()
 {
-    int n, suma = 0;
+    char nStr[5];
+    int suma = 0;
 
     printf("Podaj liczbe:");
-    scanf_s("%d",&n);
+    scanf("%s",nStr);
+    int n = atoi(nStr);
+
+
     if (n < 0) {
         printf("Suma: 0");
         return 0;
