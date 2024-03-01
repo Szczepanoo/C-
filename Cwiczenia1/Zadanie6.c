@@ -55,6 +55,7 @@ int main() {
             scanf("%s", playerChoiceStr);
         }
 
+
         int playerChoice = atoi(playerChoiceStr);
 
         while (playerChoice < 1 || playerChoice > 3){
