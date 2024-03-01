@@ -5,7 +5,15 @@
 int main() {
 
     int licznik = 0;
-    while (1)
+    char rundyStr[5];
+
+    printf("Podaj ile rund chcesz zagrac: ");
+    scanf("%s", rundyStr);
+    int rundy = atoi(rundyStr);
+
+    char (*scores)[3] = malloc(sizeof(char[rundy][3]));
+
+    while (rundy > 0)
     {
         char playerChoiceStr[10];
         int computerChoice;
@@ -13,7 +21,6 @@ int main() {
         char computerMove;
         char result;
 
-        char scores[10][3];
 
         printf("Wybierz:\n");
         printf("1 - Papier\n");
@@ -21,17 +28,22 @@ int main() {
         printf("3 - Nozyce\n");
         printf("score - Wyswietlenie wynikow\n");
         printf("Twoj wybor: ");
-        scanf("%s", &playerChoiceStr);
+        scanf("%s", playerChoiceStr);
 
 
         while (strcmp(playerChoiceStr,"score") == 0)
         {
-            printf("Gracz   Komputer   Wynik\n");
-            for (int i = 0; i < 10; i++) {
-                for (int j = 0; j < 3; j++) {
-                    printf(" %c         ",scores[i][j]);
+            if (licznik == 0){
+                printf("Brak historii gier.\n ");
+            } else {
+
+                printf("Gracz   Komputer   Wynik\n");
+                for (int i = 0; i < licznik; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        printf(" %c         ", scores[i][j]);
+                    }
+                    printf("\n");
                 }
-                printf("\n");
             }
 
             printf("Wybierz:\n");
@@ -40,16 +52,39 @@ int main() {
             printf("3 - Nozyce\n");
             printf("score - Wyswietlenie wynikow \n");
             printf("Twoj wybor: ");
-            scanf("%s", &playerChoiceStr);
+            scanf("%s", playerChoiceStr);
         }
 
         int playerChoice = atoi(playerChoiceStr);
 
+        while (playerChoice < 1 || playerChoice > 3){
+            printf("Niepoprawny wybor. Podaj ponowie.\n");
+            printf("Twoj wybor: ");
+            scanf("%s", playerChoiceStr);
+            while (strcmp(playerChoiceStr,"score") == 0)
+            {
+                if (licznik == 0){
+                    printf("Brak historii gier.\n ");
+                } else {
 
+                    printf("Gracz   Komputer   Wynik\n");
+                    for (int i = 0; i < licznik; i++) {
+                        for (int j = 0; j < 3; j++) {
+                            printf(" %c         ", scores[i][j]);
+                        }
+                        printf("\n");
+                    }
+                }
 
-        if (playerChoice < 1 || playerChoice > 3) {
-            printf("Niepoprawny wybor.\n");
-            return 1;
+                printf("Wybierz:\n");
+                printf("1 - Papier\n");
+                printf("2 - Kamien\n");
+                printf("3 - Nozyce\n");
+                printf("score - Wyswietlenie wynikow \n");
+                printf("Twoj wybor: ");
+                scanf("%s", playerChoiceStr);
+            }
+            playerChoice = atoi(playerChoiceStr);
         }
 
         switch (playerChoice) {
@@ -94,14 +129,12 @@ int main() {
             result = 'P';
         }
 
-        if (licznik <= 9) {
-            scores[licznik][0] = playerMove;
-            scores[licznik][1] = computerMove;
-            scores[licznik][2] = result;
-            licznik ++;
-        }
 
-
+        scores[licznik][0] = playerMove;
+        scores[licznik][1] = computerMove;
+        scores[licznik][2] = result;
+        licznik ++;
+        rundy --;
     }
 
     return 0;
