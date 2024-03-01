@@ -53,20 +53,64 @@ void UsunKontakt(Contact *tablica, int *ilosc_kontaktow){
     char szukane_nazwisko[50];
     printf("Podaj nazwisko do usuniecia:");
     scanf("%s",szukane_nazwisko);
-    int szukane_id = -1;
+    int znalezione_id = 0;
+
+    //zliczanie ile jest kontaktow z takim nazwiskiem
     for (int i = 0;i < *ilosc_kontaktow; i++){
         if (strcmp(tablica[i].nazwisko,szukane_nazwisko) == 0){
-            szukane_id = i;
-            break;
+            znalezione_id += 1;
         }
     }
 
-    if (szukane_id >= 0) {
+
+    if (znalezione_id == 1) {
+        int szukane_id = -1;
+        //szukanie id jedynego kontaktu
+        for (int i = 0;i < *ilosc_kontaktow; i++){
+            if (strcmp(tablica[i].nazwisko,szukane_nazwisko) == 0){
+                szukane_id = i;
+                break;
+            }
+        }
+
+        // usuwanie kontaktu
         for (int i = szukane_id; i < *ilosc_kontaktow - 1; i++) {
             tablica[i] = tablica[i + 1];
         }
         (*ilosc_kontaktow)--;
         printf("Usunieto kontakt. \n");
+
+    } else if (znalezione_id > 1){
+        printf("[ZNALEZIONO WIECEJ TAKICH SAMYCH NAZWISK] \n");
+        for (int i = 0;i < *ilosc_kontaktow; i++){
+            if (strcmp(tablica[i].nazwisko,szukane_nazwisko) == 0){
+                printf("[======%d======] \n", i);
+                printf("Imie: %s \n",tablica[i].imie);
+                printf("Nazwisko: %s \n",tablica[i].nazwisko);
+                printf("Numer: %s \n", tablica[i].numer_tel);
+            }
+        }
+        printf("[-------------] \n");
+        printf("Wybierz numer id tego, ktore chcesz usunac \n");
+        printf("ID: ");
+        char idStr[2];
+        scanf("%1s",idStr);
+        int id = atoi(idStr);
+
+        // usuwanie kontaktu
+        for (int i = 0;i < *ilosc_kontaktow; i++){
+            if (strcmp(tablica[i].nazwisko,szukane_nazwisko) == 0 && i == id){
+                for (int i = id; i < *ilosc_kontaktow - 1; i++) {
+                    tablica[i] = tablica[i + 1];
+                }
+                (*ilosc_kontaktow)--;
+                printf("Usunieto kontakt. \n");
+                return;
+            }
+        }
+
+        printf("Nie znaleziono id pasujacego do usuwanego nazwiska. \n");
+
     } else {
         printf("Nie znaleziono kontaktu. \n");
     }
@@ -90,11 +134,12 @@ int main(){
             {"Adam","Kubica","123456789"},
             {"Robert", "Malysz","987654321"},
             {"Mariusz","Mickiewicz","456789321"},
-            {"Jan","Slowacki","321654987"}
+            {"Jan","Slowacki","321654987"},
+            {"Mateusz","Slowacki","134523453"}
     };
 
     Contact *p_contacts = &contacts;
-    int ilosc_kontaktow = 4; // początkowa ilośc
+    int ilosc_kontaktow = 5; // początkowa ilośc
     int *p_ilosc_kontaktow = &ilosc_kontaktow;
     char opcjaStr[2];
     int opcja = -1;
