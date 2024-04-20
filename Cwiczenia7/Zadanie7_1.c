@@ -17,7 +17,7 @@ int wordToNumber(char *word) {
     return -1; // -1 w przypadku braku dopasowania
 }
 
-int calculateEnergySum(const char *filename) {
+int calculateEnergySum2(const char *filename) {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
         perror("Nie można otworzyć pliku");
@@ -90,10 +90,64 @@ int calculateEnergySum(const char *filename) {
     return sum;
 }
 
+int calculateEnergySum1(const char *filename) {
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        perror("Nie można otworzyć pliku");
+        exit(EXIT_FAILURE);
+    }
+
+    int sum = 0;
+    char line[80];
+
+    while (fgets(line, sizeof(line), file)) {
+
+        line[strcspn(line, "\n")] = 0;
+
+
+        int number_front = -1;
+        int number_back = -1;
+        int actual_line_len = 0;
+
+        // sprawdzanie rzeczywistej dlugosci linii
+        for (int i = 0; i < strlen(line); i++){
+            if(line[i] != NULL){
+                actual_line_len++;
+            }
+        }
+
+
+        // sprawdzanie od poczatku
+        for (int i = 0; i < actual_line_len; i++) {
+            if (isdigit(line[i])) {
+                number_front = line[i] - '0';
+                break;
+            }
+        }
+
+        // sprawdzanie od konca
+        for (int i = actual_line_len; i >= 0; i--) {
+            if (isdigit(line[i])) {
+                number_back = line[i] - '0';
+                break;
+            }
+        }
+
+        sum += (number_front * 10) + number_back;
+    }
+
+    fclose(file);
+    return sum;
+}
+
+
 int main() {
     const char *filename = "input.txt";
-    int energySum = calculateEnergySum(filename);
-    printf("Suma wartosci energetycznych: %d\n", energySum);
+    int energySum1 = calculateEnergySum1(filename);
+    printf("I Suma wartosci energetycznych: %d\n", energySum1);
+
+    int energySum2 = calculateEnergySum2(filename);
+    printf("II Suma wartosci energetycznych: %d\n", energySum2);
 
     return 0;
 }
