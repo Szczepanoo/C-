@@ -91,7 +91,7 @@ int main(){
                 }
 
         }
-        printf("red %d, green %d, blue %d \n", min_red, min_green, min_blue);
+
         min_sum += (min_red * min_green * min_blue);
 
         if (flag == 0){
