@@ -63,7 +63,7 @@ int main(){
                 }
             }
 
-            if (strncmp(&line[i], "red", 3) == 0) {
+            if (line.substr(line[i], 3) == "red") {
                 if (number > max_red) {
                     flag = 1;
                 }
@@ -72,7 +72,7 @@ int main(){
                 }
             }
 
-            if (strncmp(&line[i], "green", 5) == 0) {
+            if (line.substr(line[i], 5) == "green") {
                 if (number > max_green) {
                     flag = 1;
                 }
@@ -81,7 +81,7 @@ int main(){
                 }
             }
 
-            if (strncmp(&line[i], "blue", 4) == 0) {
+            if (line.substr(line[i], 4) == "blue") {
                 if (number > max_blue) {
                     flag = 1;
                 }
